@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0025)https://bibi.themeix.com/ -->
-<html lang="en">
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Blog Space - Home</title>
@@ -14,7 +13,6 @@
     <link rel="stylesheet" href="css/responsive.css">
     <!--  Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <meta name="description" content="Thoughts, stories and ideas.">
     <link rel="shortcut icon" href="https://bibi.themeix.com/favicon.ico" type="image/x-icon">
     <link rel="canonical" href="http://bibi.themeix.com/">
@@ -73,7 +71,7 @@
     <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
     <meta name="google-site-verification" content="0eZCam5WiXbBLJ4qbXdYKZwPqBY7B5JnBDiq3kM-Ts8">
     <style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style><script src="./Blog_files/l.js.download" async=""></script><link href="https://client.relay.crisp.chat/" rel="dns-prefetch" crossorigin=""><link href="https://settings.crisp.chat/" rel="preconnect" crossorigin=""><link href="https://client.crisp.chat/" rel="preconnect" crossorigin=""><link href="https://image.crisp.chat/" rel="preconnect" crossorigin=""><script src="./Blog_files/client.js.download" type="text/javascript" async=""></script><link href="./Blog_files/client_default.css" type="text/css" rel="stylesheet"></head>
-<body class="home-template">
+
 <div class="main-area">
 
     <!-- Start Header Area -->
@@ -87,9 +85,9 @@
                                 <div class="table">
                                     <ul id="horizontal-list">
                                         <li><a href="/home">Home</a></li>
-                                        <#if usuario?? && usuario.autor == true>
+                                        <#if usuario??>
                                             <li><a href="/crearPost">Crear Post</a></li>
-                                         <li><a href="/logout">Log-out</a></li>
+                                         <li><a href="/logout">Log-outF</a></li>
                                         <#else>
                                            <li><a href="/log-in">Log-in</a></li>
                                            <li><a href="/signupPage">Sign-up</a></li>
@@ -117,85 +115,47 @@
             </div>
         </div>
     </header>
-    <!-- End Header Area -->
+<body class="post-area section-spacing">
+    <form action="/crearPost" method="post">
 
-    <!-- Start Post Area -->
-    <div class="post-area section-spacing">
+        <div class="row">
+            <div class="form-group col-lg-4">
+            <label for="titulo">Titulo</label>
+            <input type="text" name="titulo" placeholder="Titulo del articulo" class="form-control" value="${articulo.titulo}">
+            </div>
+            </div>
+
+        <div class="row">
+            <div class="form-group col-lg-6">
+            <label for="cuerpo">Cuerpo</label>
+            <textarea type="text" name="cuerpo" placeholder="Cuerpo del articulo" class="form-control">${articulo.cuerpo}</textarea>
+        </div>
+            </div>
+
+        <div class="row">
+            <div class="form-group col-lg-4">
+            <label for="listaEtiqueta">Etiquetas</label>
+            <input type="text" name="listaEtiqueta" placeholder="Etiquetas del articulo" class="form-control" value="${etiquetas}">
+        </div>
+            </div>
+        <div>
+            <button type="submit" class="btn">
+                Editar Post
+            </button>
+        </div>
+    </form>
+</body>
+
+    <footer class="footer-area section-spacing bg-color2">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 m-auto">
 
-                    <#list articulos as articulo>
-                        <div class="themeix-post-style wow fadeIn d-md-flex" style="visibility: hidden; animation-name: none;">
-                            <div class="post-featured-image" style="background-image:url(https://dcassetcdn.com/design_img/2312077/501322/501322_12084041_2312077_9b8c94a4_thumbnail.png);background-size: cover;background-position: center center;"></div>
-
-                            <div class="themeix-post-descript">
-                                <div class="post-big-font">${articulo_index + 1}</div>
-                                <ul class="post-meta-data list-inline">
-                                    <#if usuario??>
-                                        <#if usuario.administrator == true && usuario.autor == true>
-                                        <li>
-                                            <a href="editarPost/${articulo.id}"><strong>Editar</strong></a> - <a href="editarPost/${articulo.id}"><strong>Eliminar</strong></a>
-                                        </li>
-                                        </#if>
-                                    </#if>
-
-
-                                    <li class="list-inline-hemeix.com/welcome/"> <a href="/articulo/${articulo.id}"><h3 class="title_heading">${articulo.titulo}</h3></a>
-                                        <p>${articulo.cuerpo[0..*70]}</p>
-                                 <i class="fa fa-calendar"></i> ${articulo.fecha}</li>
-
-                                    <div class="single-share-post d-flex justify-content-between themeix">
-                                        <div class="tags-cloud-wrapper">
-                                            <span class="mr-2"><i class="fa fa-tag"></i> Tags: </span>
-                                            <div class="tag-list">
-                                <#if articulo.listaEtiq??>
-                                    <#list articulo.listaEtiq as etiqueta>
-                                            <a href="/tagFilter/${etiqueta.etiq}?p=1">${etiqueta.etiq}<#sep>, </#sep></a>
-                                    </#list>
-                                </#if>
-                                            </div>
-                                        </div>
-                                </ul>
-
-                            </div>
-                        </div>
-                    </#list>
-
-
-
-                    </div>
-
-                </div>
+                <p class="themeix-footer-copyright">©Copyright - 2018 Bibi - Responsive Ghost Theme - Designed by <a href="http://themeix.com/">Themeix</a></p>
+                <p class="themeix-footer-copyright-bottom">Published with  <a href="https://ghost.org/">Ghost</a></p>
             </div>
         </div>
-
-
-
-
-    </div>
-
-</body>
-    <!-- End Post Area -->
-<footer class="footer-area section-spacing bg-color2">
-    <div class="container">
-        <div class="themeix-footer-widget">
-            <ul class="pagination">
-            <#if prevN == 1>
-					<li><a class="active" href="/home?p=${prev}">&lt;&lt; Previous Page</a></li>
-
-            </#if>
-
-            <#if nextN == 1>
-                <li><a class="active" href="/home?p=${next}">Next Page &gt;&gt;</a></li>
-            </#if>
-
-            </ul>
-            <p class="themeix-footer-copyright">©Copyright - 2018 Bibi - Responsive Ghost Theme - Designed by <a href="http://themeix.com">Themeix</a></p>
-            <p class="themeix-footer-copyright-bottom">Published with  <a href="https://ghost.org">Ghost</a></p>
-        </div>
-    </div>
-</footer>
+    </footer>
+    <!-- End Footer Area -->
+</div>
 <!-- Add Javascript File -->
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>
@@ -205,4 +165,7 @@
 <script src="js/wow.min.js"></script>
 <script src="js/jquery.fitvids.js"></script>
 <script src="js/custom.js"></script>
-</html>
+
+
+
+    </html>

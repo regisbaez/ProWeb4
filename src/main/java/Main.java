@@ -22,7 +22,7 @@ public class Main {
 
 
     public static void main(String[] args) {
-        staticFiles.location("/Templates");
+        staticFiles.externalLocation("src/main/resources/Templates");
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_28);
         configuration.setClassForTemplateLoading(Main.class, "/");
 
@@ -125,6 +125,53 @@ public class Main {
             Template t = configuration.getTemplate("Templates/crearPost.ftl");
             t.process(atr,writer);
             return writer;
+        });
+
+
+        get("/editarPost/:id", (req, res) -> {
+
+            Usua usuario = req.session(true).attribute("usuario");
+            StringWriter writer = new StringWriter();
+            Map<String, Object> atr = new HashMap<>();
+            Template t = configuration.getTemplate("Templates/editarPost.ftl");
+            String id = req.params("id");
+            Art a = articuloDatos.getArtId(Long.parseLong(id));
+            a.setListaEtiq(etiquetaDatos.getEtiqs(a.getId()));
+            a.setListaComs(comentarioDatos.getCom(a.getId()));
+            StringBuilder listEtiq = new StringBuilder();
+            for(int i = 0; i <a.getListaEtiq().size(); i++){
+                listEtiq.append(a.getListaEtiq().get(i).getEtiq()).append(",");
+
+            }
+            atr.put("articulo",a);
+            atr.put("etiquetas", listEtiq.toString());
+            atr.put("usuario",usuario);
+            t.process(atr,writer);
+            return writer;
+        });
+
+        post("/editar/:id", (req, res) -> {
+            long id = Long.parseLong(req.params("id"));
+            String titulo = req.queryParams("titulo");
+            String cuerpo = req.queryParams("cuerpo");
+            String etiquetas = req.queryParams("listaEtiquetas");
+            List<String> listaEtiq = Arrays.asList(etiquetas.split(","));
+            ArrayList<Etiq> etiquetaArrayList = new ArrayList<>();
+            Art art = articuloDatos.getArtId(id);
+
+            for(int j = 0; j<listaEtiq.size(); j++){
+                Etiq e = new Etiq(listaEtiq.get(j));
+                etiquetaArrayList.add(e);
+            }
+            art.setListaEtiq(etiquetaArrayList);
+            art.setListaComs(null);
+            art.setLikes(0);
+            art.setDislikes(0);
+            articuloDatos.editarArt(art,titulo,cuerpo,etiquetaArrayList);
+
+            res.redirect("/");
+
+            return null;
         });
 
         get("/articulo/:id", (req, res) -> {
