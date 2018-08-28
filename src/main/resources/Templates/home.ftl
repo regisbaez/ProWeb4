@@ -135,7 +135,7 @@
                                     <#if usuario??>
                                         <#if usuario.administrator == true && usuario.autor == true>
                                         <li>
-                                            <a href="editarPost/${articulo.id}"><strong>Editar</strong></a> - <a href="editarPost/${articulo.id}"><strong>Eliminar</strong></a>
+                                            <a href="editarPost/${articulo.id}"><strong>Editar</strong></a>
                                         </li>
                                         </#if>
                                     </#if>
@@ -156,6 +156,15 @@
                                 </#if>
                                             </div>
                                         </div>
+
+                                        <#if usuario??>
+                                            <#if usuario.administrator == true && usuario.autor == true>
+                                        <li>
+                                            <a href="eliminar/${articulo.id}"><strong class="alert-danger">ELIMINAR</strong></a>
+                                        </li>
+                                            </#if>
+                                        </#if>
+
                                 </ul>
 
                             </div>

@@ -307,16 +307,19 @@ public class Main {
             String password = req.queryParams("password");
             String nombre = req.queryParams("name");
             String a = req.queryParams("autor");
-
+            Usua u = new Usua(username,nombre,password,false,true);
             if(a!=null)
-                usuarioDatos.crearUsua(new Usua(username,nombre,password,false,true));
+                u.setAutor(true);
             else
-                usuarioDatos.crearUsua(new Usua(username,nombre,password,false,false));
+                u.setAutor(false);
 
-
-
-
+            req.session(true);
+            req.session().attribute("usuario", u);
+            res.redirect("/home");
             return "";
+
+
+
         });
 
 
@@ -334,37 +337,16 @@ public class Main {
             Usua autor = req.session(true).attribute("usuario");
 
             if (autor.isAdministrator() || autor.isAutor()) {
-                StringWriter writer = new StringWriter();
-                Map<String, Object> atributos = new HashMap<>();
-                Template template = configuration.getTemplate("templates/eliminarArt.ftl");
 
                 Art articulo = articuloDatos.getArtId(Long.parseLong(req.params("id")));
-
-                atributos.put("articulo", articulo);
-                template.process(atributos, writer);
-
-                return writer;
+                articuloDatos.borrarArt(articulo.getId());
             }
             res.redirect("/");
             return null;
         });
 
 
-        get("/editar/:id", (req, res) -> {
-            StringWriter writer = new StringWriter();
-            Map<String, Object> atributos = new HashMap<>();
-            Template template = configuration.getTemplate("templates/editarArt.ftl");
-            Usua autor = req.session(true).attribute("usuario");
 
-
-            Art articulo = articuloDatos.getArtId(Long.parseLong(req.params("id")));
-
-            atributos.put("articulo", articulo);
-            atributos.put("autor", autor);
-            template.process(atributos, writer);
-
-            return writer;
-        });
 
 
         post("/eliminar/:id", (req, res) -> {
@@ -378,25 +360,7 @@ public class Main {
         });
 
 
-        post("/editar/:id", (req, res) -> {
-            StringWriter writer = new StringWriter();
-            Map<String, Object> atributos = new HashMap<>();
-            Template template = configuration.getTemplate("templates/editarArticulo.ftl");
 
-            Art articulo = articuloDatos.getArtId(Long.parseLong(req.params("id")));
-            String listEtiquetas = "";
-            for(int i = 0; i < articulo.getListaEtiq().size(); i++){
-                listEtiquetas += articulo.getListaEtiq().get(i).getEtiq() + ",";
-
-            }
-            listEtiquetas = listEtiquetas.replaceAll("\\s+","");
-            System.out.println(listEtiquetas);
-            atributos.put("articulo", articulo);
-            atributos.put("listaEtiquetas",listEtiquetas);
-            template.process(atributos, writer);
-
-            return writer;
-        });
     }
 
 }

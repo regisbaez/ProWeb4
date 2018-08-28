@@ -133,6 +133,13 @@
                             <div class="themeix-post-descript">
                                 <div class="post-big-font">${articulo_index + 1}</div>
                                 <ul class="post-meta-data list-inline">
+                                    <#if usuario??>
+                                        <#if usuario.administrator == true && usuario.autor == true>
+                                        <li>
+                                            <a href="editarPost/${articulo.id}"><strong>Editar</strong></a>
+                                        </li>
+                                        </#if>
+                                    </#if>
                                     <li class="list-inline-hemeix.com/welcome/"> <a href="/articulo/${articulo.id}"><h3 class="title_heading">${articulo.titulo}</h3></a>
                                         <p>${articulo.cuerpo[0..*70]}</p>
                                  <i class="fa fa-calendar"></i> ${articulo.fecha}</li>
@@ -149,6 +156,14 @@
                                             </div>
                                         </div>
                                 </ul>
+
+                                <#if usuario??>
+                                    <#if usuario.administrator == true && usuario.autor == true>
+                                        <li>
+                                            <a href="eliminar/${articulo.id}"><strong class="alert-danger">ELIMINAR</strong></a>
+                                        </li>
+                                    </#if>
+                                </#if>
 
                             </div>
                         </div>
