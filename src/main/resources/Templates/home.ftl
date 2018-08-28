@@ -132,6 +132,9 @@
                             <div class="themeix-post-descript">
                                 <div class="post-big-font">${articulo_index + 1}</div>
                                 <ul class="post-meta-data list-inline">
+                                    <li>
+                                        <a href=""></a>
+                                    </li>
                                     <li class="list-inline-hemeix.com/welcome/"> <a href="/articulo/${articulo.id}"><h3 class="title_heading">${articulo.titulo}</h3></a>
                                         <p>${articulo.cuerpo[0..*70]}</p>
                                  <i class="fa fa-calendar"></i> ${articulo.fecha}</li>
@@ -160,9 +163,33 @@
                 </div>
             </div>
         </div>
+
+
+
+
     </div>
+
 </body>
     <!-- End Post Area -->
+<footer class="footer-area section-spacing bg-color2">
+    <div class="container">
+        <div class="themeix-footer-widget">
+            <ul class="pagination">
+            <#if prevN == 1>
+					<li><a class="active" href="/home?p=${prev}">&lt;&lt; Previous Page</a></li>
+
+            </#if>
+
+            <#if nextN == 1>
+                <li><a class="active" href="/home?p=${next}">Next Page &gt;&gt;</a></li>
+            </#if>
+
+            </ul>
+            <p class="themeix-footer-copyright">©Copyright - 2018 Bibi - Responsive Ghost Theme - Designed by <a href="http://themeix.com">Themeix</a></p>
+            <p class="themeix-footer-copyright-bottom">Published with  <a href="https://ghost.org">Ghost</a></p>
+        </div>
+    </div>
+</footer>
 <!-- Add Javascript File -->
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>

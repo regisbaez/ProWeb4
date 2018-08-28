@@ -100,15 +100,15 @@ public class Main {
 
 
             if(pagina <= 1){
-                atr.put("valorAnterior", 0);
+                atr.put("prevN", 0);
             }else{
-                atr.put("valorAnterior", 1);
+                atr.put("prevN", 1);
             }
 
             if(pagina >= maximo){
-                atr.put("valorSiguiente", 0);
+                atr.put("nextN", 0);
             }else{
-                atr.put("valorSiguiente", 1);
+                atr.put("nextN", 1);
             }
             atr.put("prev", (pagina - 1));
             atr.put("next", (pagina + 1));
@@ -213,15 +213,15 @@ public class Main {
 
 
             if(pagina <= 1){
-                atr.put("valorAnterior", 0);
+                atr.put("prevN", 0);
             }else{
-                atr.put("valorAnterior", 1);
+                atr.put("prevN", 1);
             }
 
             if(pagina >= maximo){
-                atr.put("valorSiguiente", 0);
+                atr.put("nextN", 0);
             }else{
-                atr.put("valorSiguiente", 1);
+                atr.put("nextN", 1);
             }
             atr.put("prev", (pagina - 1));
             atr.put("next", (pagina + 1));
