@@ -20,7 +20,7 @@ public class ReacDatos {
 
     public Reacc checkLike(Usua Usua, Art Art){
         try{
-            Query query = em.createQuery("select r from Reac r  where r.articulo = ?1 AND r.usuario = ?2")
+            Query query = em.createQuery("select r from Reacc r where r.Art = ?1 AND r.Usua = ?2")
                     .setParameter(1, Art)
                     .setParameter(2, Usua);
             return (Reacc) query.getSingleResult();

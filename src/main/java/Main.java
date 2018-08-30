@@ -1,11 +1,5 @@
-import Datos.ArtDatos;
-import Datos.ComDatos;
-import Datos.EtiqDatos;
-import Datos.UserDatos;
-import clases.Art;
-import clases.Com;
-import clases.Etiq;
-import clases.Usua;
+import Datos.*;
+import clases.*;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.jasypt.util.text.BasicTextEncryptor;
@@ -30,6 +24,7 @@ public class Main {
         ArtDatos articuloDatos = new ArtDatos();
         EtiqDatos etiquetaDatos = new EtiqDatos();
         ComDatos comentarioDatos = new ComDatos();
+        ReacDatos reaccionDatos = new ReacDatos();
 
 
         if(usuarioDatos.countUsers()==0){
@@ -85,7 +80,10 @@ public class Main {
             StringWriter writer = new StringWriter();
             Map<String, Object> atr = new HashMap<>();
             Template template = configuration.getTemplate("templates/home.ftl");
-            int pagina = Integer.parseInt(req.queryParams("p"));
+            int pagina = 1;
+            if(req.queryParams("p")!=null)
+                pagina= Integer.parseInt(req.queryParams("p"));
+
             int maximo = (int) Math.ceil(articuloDatos.countArts() / 5);
             List<Art> artList = articuloDatos.listarArts(pagina);
 
@@ -185,10 +183,14 @@ public class Main {
             a.setListaEtiq(etiquetaDatos.getEtiqs(a.getId()));
             a.setListaComs(comentarioDatos.getCom(a.getId()));
             ArrayList<String> usuarios = new ArrayList<>();
+            int likes = articuloDatos.countLikes(a.getId());
+            int dislikes = articuloDatos.countDislikes(a.getId());
 
             atr.put("articulo",a);
             atr.put("autor",usuarioDatos.getUserId(a.getAutor().getId()));
             atr.put("usuarioList",usuarios);
+            atr.put("numeroLikes",likes);
+            atr.put("numeroDislikes",dislikes);
             atr.put("usuario",usuario);
             t.process(atr,writer);
             return writer;
@@ -279,6 +281,49 @@ public class Main {
             return writer;
         });
 
+        get("articulo/:id/like", (req, res) -> {
+            Usua usuario = req.session(true).attribute("usuario");
+            Long idArticulo = Long.parseLong(req.params("id"));
+            Art articulo = articuloDatos.getArtId(idArticulo);
+            Reacc re = reaccionDatos.checkLike(usuario,articulo);
+            if(re == null){
+                reaccionDatos.guardarLike(new Reacc(articulo,usuario,true));
+                res.redirect("/articulo/" + idArticulo);
+            }else{
+                reaccionDatos.deleteLike(re);
+
+                if(!re.isReacc())
+                    reaccionDatos.updateLike(re,true);
+
+                res.redirect("/articulo/" + idArticulo);
+            }
+
+
+
+
+            return null;
+        });
+
+        get("articulo/:id/dislike", (req, res) -> {
+            Usua usuario = req.session(true).attribute("usuario");
+            Long idArticulo = Long.parseLong(req.params("id"));
+            Art articulo = articuloDatos.getArtId(idArticulo);
+            Reacc re = reaccionDatos.checkLike(usuario,articulo);
+            if(re == null){
+                reaccionDatos.guardarLike(new Reacc(articulo,usuario,false));
+                res.redirect("/articulo/" + idArticulo);
+            }else{
+                reaccionDatos.deleteLike(re);
+
+                if(re.isReacc())
+                    reaccionDatos.updateLike(re,false);
+
+                res.redirect("/articulo/" + idArticulo);
+            }
+
+            return null;
+        });
+
         post("/login", (req, res) -> {
 
             String username = req.queryParams("username");
@@ -313,9 +358,10 @@ public class Main {
             else
                 u.setAutor(false);
 
+            usuarioDatos.crearUsua(u);
             req.session(true);
             req.session().attribute("usuario", u);
-            res.redirect("/home");
+            res.redirect("/home?p=1");
             return "";
 
 

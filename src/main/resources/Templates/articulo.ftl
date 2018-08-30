@@ -188,7 +188,21 @@
 
                         <#if usuario??>
                         <div class="form-group">
-                            <form action="${articulo.id}\comentar" method="post">
+                            <form style="display: inline;" action="/articulo/${articulo.id}/like" method="get">
+                                <button class="btn" type="submit" >
+                                    ${numeroLikes} Like
+                                </button>
+                            </form>
+
+                            <form action="/articulo/${articulo.id}/dislike" style="display: inline;" method="get">
+                                <button class="btn" type="submit">
+                                    ${numeroDislikes} Dislike
+                                </button>
+                            </form>
+
+                        </div>
+                        <div class="form-group">
+                            <form action="${articulo.id}/comentar" method="post">
                                 <label for="comentario">
                                     Comentario:
                                     <input type="text" name="comentario" class="text-field">
@@ -205,12 +219,12 @@
                     <div class="single-title">
                         <h4>Comments</h4>
                         <div class="comments">
-                            <#if articulo.listaComentarios??>
-                                <#list articulo.listaComentarios as comentarios>
+                            <#if articulo.listaComs??>
+                                <#list articulo.listaComs as comentarios>
 
-                                        ${comentarios.autor} dijo:
+                                        ${comentarios.autor.username} dijo:
                                 <div>
-                                    ${comentarios.comentario}
+                                    ${comentarios.com}
                                 </div>
 
                                 </#list>

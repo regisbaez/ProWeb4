@@ -2,7 +2,6 @@
 <!-- saved from url=(0025)https://bibi.themeix.com/ -->
 <html lang="en">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Blog Space - Home</title>
     <!-- Add CSS File -->
@@ -60,7 +59,6 @@
     "description": "Thoughts, stories and ideas."
 }
     </script>
-
     <script src="js/ghost-sdk.min.js"></script>
     <script>
         ghost.init({
@@ -75,7 +73,6 @@
     <style id="fit-vids-style">.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style><script src="./Blog_files/l.js.download" async=""></script><link href="https://client.relay.crisp.chat/" rel="dns-prefetch" crossorigin=""><link href="https://settings.crisp.chat/" rel="preconnect" crossorigin=""><link href="https://client.crisp.chat/" rel="preconnect" crossorigin=""><link href="https://image.crisp.chat/" rel="preconnect" crossorigin=""><script src="./Blog_files/client.js.download" type="text/javascript" async=""></script><link href="./Blog_files/client_default.css" type="text/css" rel="stylesheet"></head>
 <body class="home-template">
 <div class="main-area">
-
     <!-- Start Header Area -->
     <header class="header-area">
         <div class="themeix-header-collapse collapse bg-color2" id="navbarHeader">
@@ -86,7 +83,7 @@
                             <div class="menu-outer">
                                 <div class="table">
                                     <ul id="horizontal-list">
-                                        <li><a href="/home">Home</a></li>
+                                        <li><a href="/home?p=1">Home</a></li>
                                         <#if usuario?? && usuario.autor == true>
                                             <li><a href="/crearPost">Crear Post</a></li>
                                          <li><a href="/logout">Log-out</a></li>
@@ -105,7 +102,7 @@
         </div>
         <div class="themeix-navbar navbar bg-color">
             <div class="container d-flex justify-content-between">
-                <a href="/home" class="themeix-navbar-brand navbar-brand d-flex align-items-center">
+                <a href="/home?p=1" class="themeix-navbar-brand navbar-brand d-flex align-items-center">
                     <img src="./Blog_files/bibiblog.png" alt="Blog Space">
                 </a>
                 <button class="toggle-nav js-toggle-nav navbar-toggler" data-toggle="collapse" data-target="#navbarHeader">
@@ -118,7 +115,6 @@
         </div>
     </header>
     <!-- End Header Area -->
-
     <!-- Start Post Area -->
     <div class="post-area section-spacing">
         <div class="container">
@@ -139,8 +135,6 @@
                                         </li>
                                         </#if>
                                     </#if>
-
-
                                     <li class="list-inline-hemeix.com/welcome/"> <a href="/articulo/${articulo.id}"><h3 class="title_heading">${articulo.titulo}</h3></a>
                                         <p>${articulo.cuerpo[0..*70]}</p>
                                  <i class="fa fa-calendar"></i> ${articulo.fecha}</li>
@@ -156,7 +150,6 @@
                                 </#if>
                                             </div>
                                         </div>
-
                                         <#if usuario??>
                                             <#if usuario.administrator == true && usuario.autor == true>
                                         <li>
@@ -164,15 +157,10 @@
                                         </li>
                                             </#if>
                                         </#if>
-
                                 </ul>
-
                             </div>
                         </div>
                     </#list>
-
-
-
                     </div>
 
                 </div>
@@ -200,8 +188,6 @@
             </#if>
 
             </ul>
-            <p class="themeix-footer-copyright">©Copyright - 2018 Bibi - Responsive Ghost Theme - Designed by <a href="http://themeix.com">Themeix</a></p>
-            <p class="themeix-footer-copyright-bottom">Published with  <a href="https://ghost.org">Ghost</a></p>
         </div>
     </div>
 </footer>

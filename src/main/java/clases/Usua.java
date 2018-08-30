@@ -25,7 +25,7 @@ public class Usua {
     private String password;
     private boolean administrator;
     private boolean autor;
-    private String cookies;
+
 
     public boolean isActivo() {
         return activo;
@@ -85,12 +85,4 @@ public class Usua {
         this.autor = autor;
     }
 
-
-    public String getCookies() {
-        return cookies;
-    }
-
-    public void setCookies(String cookies) {
-        this.cookies = cookies;
-    }
 }

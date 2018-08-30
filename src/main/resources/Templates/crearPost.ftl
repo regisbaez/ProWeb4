@@ -148,7 +148,6 @@
 
     <footer class="footer-area section-spacing bg-color2">
         <div class="container">
-
                 <p class="themeix-footer-copyright">©Copyright - 2018 Bibi - Responsive Ghost Theme - Designed by <a href="http://themeix.com/">Themeix</a></p>
                 <p class="themeix-footer-copyright-bottom">Published with  <a href="https://ghost.org/">Ghost</a></p>
             </div>
@@ -165,7 +164,4 @@
 <script src="js/wow.min.js"></script>
 <script src="js/jquery.fitvids.js"></script>
 <script src="js/custom.js"></script>
-
-
-
-    </html>
+</html>
